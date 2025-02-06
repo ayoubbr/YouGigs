@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ayoubbr",
+            "email": "ayoub1benmansour@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.19"
+    }
+}
