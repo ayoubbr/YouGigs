@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Core\Auth;
+namespace App\Controllers\front;
 
+use App\Core\Auth\LoginForm;
+use App\Core\Auth\RegisterForm;
 use App\Core\Database;
 use App\Models\Role;
 use App\Models\User;
@@ -174,8 +176,6 @@ class AuthController
     {
         return $this->user->getAll();
     }
-
-
 
     public function findByEmailAndPassword(User $user): User
     {
