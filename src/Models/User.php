@@ -15,8 +15,8 @@ class User
     private string $email = "";
     private string $phone = "";
     private string $photo = "";
-    private string $status = "";
-    private ?Role $role;
+    private    $skill;
+    private Role $role;
 
     public function __construct() {}
 
@@ -44,7 +44,7 @@ class User
                 $this->email = $arguments[3];
                 $this->phone = $arguments[4];
                 $this->photo = $arguments[5];
-                $this->status = $arguments[6];
+                $this->skil = $arguments[6];
                 $this->role = $arguments[7];
             }
         }
@@ -120,14 +120,14 @@ class User
         $this->photo = $photo;
     }
 
-    public function getStatus(): string
+    public function getSkill(): string
     {
-        return $this->status;
+        return $this->skill;
     }
 
-    public function setStatus(string $status): void
+    public function setSkill($skill): void
     {
-        $this->status = $status;
+        $this->skill = $skill;
     }
 
     public function getRole(): Role
@@ -154,7 +154,7 @@ class User
     public function create(User $user): User
     {
 
-        $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, status, role_id ) 
+        $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, skill, role_id ) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = Database::get()->connect()->prepare($query);
@@ -165,7 +165,7 @@ class User
             $user->getPassword(),
             $user->getPhoto(),
             $user->getPhone(),
-            $user->getStatus(),
+            $user->getSkill(),
             $user->getRole()->getId()
         ]);
 
