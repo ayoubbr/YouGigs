@@ -13,8 +13,8 @@ class User
     private string $lastname = "";
     private string $password = "";
     private string $email = "";
-    private string $phone = "";
-    private string $photo = "";
+    private ?string $phone = "";
+    private ?string $photo = "";
     private ?Role $role;
 
     public function __construct() {}
@@ -42,9 +42,12 @@ class User
                 $this->email = $arguments[3];
                 $this->password = $arguments[2];
                 $this->role = $arguments[4];
-                // $this->photo = $arguments[5];
-                // $this->status = $arguments[6];
-                // $this->role = $arguments[7];
+            }
+        }
+        if ($name == 'instanceForLogin') {
+            if (count($arguments) == 2) {
+                $this->email = $arguments[0];
+                $this->password = $arguments[1];
             }
         }
     }
@@ -186,5 +189,16 @@ class User
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
         return $users;
+    }
+
+    public function findByEmailAndPassword(): mixed
+    { 
+       
+        $query = "SELECT id, firstname, lastname, email, phone, photo, password FROM users WHERE email = '" . $this->getEmail() . "' AND password = '" . $this->getPassword() . "';";
+       
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute();
+       
+        return $stmt->fetchObject(User::class);
     }
 }

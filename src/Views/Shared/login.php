@@ -39,15 +39,17 @@
                 <span>or sign in with email</span>
             </div>
 
-            <form action="" method="POST">
-                <!-- {% if error %}
-                <div class="error">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM7 4v6h2V4H7zm0 8v-2h2v2H7z" />
-                    </svg>
-                    {{ error }}
-                </div>
-                {% endif %} -->
+            <form action="/auth/login" method="POST">
+                <?php
+                if (isset($_SESSION['login_error'])) { 
+                    ?>
+                    <div class="error">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM7 4v6h2V4H7zm0 8v-2h2v2H7z" />
+                        </svg>
+                        <?= $_SESSION['login_error'] ?>
+                    </div>
+                <?php } ?>
 
                 <div class="form-group">
                     <label for="email">Email Address</label>

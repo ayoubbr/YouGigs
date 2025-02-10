@@ -21,12 +21,12 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        $this->render('Client/register', []);
+        $this->render('Shared/register', []);
     }
 
     public function showLogin()
     {
-        $this->render('Client/login', []);
+        $this->render('Shared/login', []);
     }
 
     public function register()
@@ -55,6 +55,27 @@ class AuthController extends Controller
             }
         } catch (Exception $e) {
             $_SESSION['register_error'] =  $e->getMessage();
+        }
+    }
+
+    public function login()
+    {
+        unset($_SESSION['user']);
+        unset($_SESSION['login_error']);
+
+        $user = new User();
+        $user->instanceForLogin($_POST['email'], $_POST['password']);
+
+        // $this->validation($loginForm);
+
+        $user =  $user->findByEmailAndPassword();
+
+        if ($user == false) {
+            $_SESSION['login_error'] =  "Email ou le mot de passe incorrect";
+            $this->render('/Shared/login');
+        } else {
+            $_SESSION['user'] = $user;
+            $this->render('/Shared/profile');
         }
     }
 }
