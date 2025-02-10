@@ -17,7 +17,7 @@ class Router
     {
         $this->addRoute($route, $controller, $action, "GET");
     }
-    
+
     public function post($route, $controller, $action)
     {
         $this->addRoute($route, $controller, $action, "POST");
@@ -35,7 +35,7 @@ class Router
             $controller = new $controller();
             $controller->$action();
         } else {
-            throw new Exception("No route found for URI: $uri");
+            echo '404';
         }
     }
 }
