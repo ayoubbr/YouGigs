@@ -6,7 +6,7 @@ use App\Core\Database;
 use PDO;
 
 #[\AllowDynamicProperties]
-class User
+class User extends Crud
 {
     private int $id = 0;
     private string $firstname = "";
@@ -15,8 +15,8 @@ class User
     private string $email = "";
     private string $phone = "";
     private string $photo = "";
-    private    $skill;
-    private Role $role;
+    private Skill  $skill;
+    private Role   $role;
 
     public function __construct() {}
 
@@ -44,8 +44,8 @@ class User
                 $this->email = $arguments[3];
                 $this->phone = $arguments[4];
                 $this->photo = $arguments[5];
-                $this->skil = $arguments[6];
-                $this->role = $arguments[7];
+                // $this->skil = $arguments[6];
+                // $this->role = $arguments[7];
             }
         }
     }
@@ -120,7 +120,7 @@ class User
         $this->photo = $photo;
     }
 
-    public function getSkill(): string
+    public function getSkill()
     {
         return $this->skill;
     }
@@ -151,34 +151,57 @@ class User
             " , phone : " . $this->phone . " , email : " . $this->email  . " , password : " . $this->password . " photo : " . $this->photo . " , Role : " . $this->role;
     }
 
-    public function create(User $user): User
+    // public function create(User $user): User
+    // {
+
+    //     $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, skill, role_id ) 
+    //     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    //     $stmt = Database::get()->connect()->prepare($query);
+    //     $stmt->execute([
+    //         $user->getFirstname(),
+    //         $user->getLastname(),
+    //         $user->getEmail(),
+    //         $user->getPassword(),
+    //         $user->getPhoto(),
+    //         $user->getPhone(),
+    //         $user->getSkill(),
+    //         $user->getRole()->getId()
+    //     ]);
+
+    //     $user->setId(Database::get()->connect()->lastInsertId());
+    //     return $user;
+    // }
+    // public function getAll()
+    // {
+    //     $query = "SELECT id, firstname, lastname,
+    //      password, email, phone, photo, status, role_id FROM users;";
+    //     $stmt = Database::get()->connect()->prepare($query);
+    //     $stmt->execute();
+    //     $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
+    //     return $users;
+    // }
+    public function add(): void
     {
-
-        $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, skill, role_id ) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = Database::get()->connect()->prepare($query);
-        $stmt->execute([
-            $user->getFirstname(),
-            $user->getLastname(),
-            $user->getEmail(),
-            $user->getPassword(),
-            $user->getPhoto(),
-            $user->getPhone(),
-            $user->getSkill(),
-            $user->getRole()->getId()
-        ]);
-
-        $user->setId(Database::get()->connect()->lastInsertId());
-        return $user;
+        
+        $this->id = $this->insert('users', 
+        [
+            'firstName' => $this->firstname,
+         'lastName' => $this->lastname, 
+         'email' => $this->email, 
+        'password' => $this->password,
+        'phone'=>$this->phone,
+        'photo'=>$this->photo]
+        );
+        
     }
-    public function getAll()
+    public function fitcheAllUsers(): array
     {
-        $query = "SELECT id, firstname, lastname,
-         password, email, phone, photo, status, role_id FROM users;";
-        $stmt = Database::get()->connect()->prepare($query);
-        $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
-        return $users;
+        return $this->selectAll('users');
     }
+    public function deleteUser(){
+        return $this->delete('user','id',$this->id);
+        
+    }
+
 }
