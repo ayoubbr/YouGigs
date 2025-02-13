@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers\front;
+namespace App\Controllers;
 
 use App\Controller;
-use App\Models\Course;
 
 class HomeController extends Controller
 {

@@ -13,10 +13,9 @@ class User extends Crud
     private string $lastname = "";
     private string $password = "";
     private string $email = "";
-    private string $phone = "";
-    private string $photo = "";
-    private Skill  $skill;
-    private Role   $role;
+    private ?string $phone = "";
+    private ?string $photo = "";
+    private ?Role $role;
 
     public function __construct() {}
 
@@ -36,16 +35,19 @@ class User extends Crud
             }
         }
 
-        if ($name == 'instanceWithoutId') {
-            if (count($arguments) == 8) {
+        if ($name == 'instanceForRegister') {
+            if (count($arguments) == 5) {
                 $this->firstname = $arguments[0];
                 $this->lastname = $arguments[1];
-                $this->password = $arguments[2];
                 $this->email = $arguments[3];
-                $this->phone = $arguments[4];
-                $this->photo = $arguments[5];
-                // $this->skil = $arguments[6];
-                // $this->role = $arguments[7];
+                $this->password = $arguments[2];
+                $this->role = $arguments[4];
+            }
+        }
+        if ($name == 'instanceForLogin') {
+            if (count($arguments) == 2) {
+                $this->email = $arguments[0];
+                $this->password = $arguments[1];
             }
         }
     }
@@ -151,57 +153,53 @@ class User extends Crud
             " , phone : " . $this->phone . " , email : " . $this->email  . " , password : " . $this->password . " photo : " . $this->photo . " , Role : " . $this->role;
     }
 
-    // public function create(User $user): User
-    // {
-
-    //     $query = "INSERT INTO users (firstname, lastname, email, password, photo, phone, skill, role_id ) 
-    //     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-    //     $stmt = Database::get()->connect()->prepare($query);
-    //     $stmt->execute([
-    //         $user->getFirstname(),
-    //         $user->getLastname(),
-    //         $user->getEmail(),
-    //         $user->getPassword(),
-    //         $user->getPhoto(),
-    //         $user->getPhone(),
-    //         $user->getSkill(),
-    //         $user->getRole()->getId()
-    //     ]);
-
-    //     $user->setId(Database::get()->connect()->lastInsertId());
-    //     return $user;
-    // }
-    // public function getAll()
-    // {
-    //     $query = "SELECT id, firstname, lastname,
-    //      password, email, phone, photo, status, role_id FROM users;";
-    //     $stmt = Database::get()->connect()->prepare($query);
-    //     $stmt->execute();
-    //     $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
-    //     return $users;
-    // }
-    public function add(): void
+    public function create()
     {
-        
-        $this->id = $this->insert('users', 
-        [
-            'firstName' => $this->firstname,
-         'lastName' => $this->lastname, 
-         'email' => $this->email, 
-        'password' => $this->password,
-        'phone'=>$this->phone,
-        'photo'=>$this->photo]
-        );
-        
+
+        $query = "INSERT INTO users (firstname, lastname, password, email) 
+        VALUES (?, ?, ?, ?)  RETURNING id";
+
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute([
+            $this->getFirstname(),
+            $this->getLastname(),
+            $this->getPassword(),
+            $this->getEmail()
+        ]);
+        $this->setId($stmt->fetchColumn());
+
+        $this->createUserRoles($this->getId(), $this->getRole()->getId());
+
+        return $this;
     }
-    public function fitcheAllUsers(): array
+
+    public function createUserRoles($user_id, $role_id)
+    {
+        $query = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
+
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute([$user_id, $role_id]);
+    }
+
+    public function getAll()
     {
         return $this->selectAll('users');
     }
-    public function deleteUser(){
-        return $this->delete('user','id',$this->id);
-        
-    }
 
+    public function findByEmailAndPassword(): mixed
+    {
+
+        $query = "SELECT users.id, users.firstname, users.lastname, users.email, users.phone, users.photo, users.password, 
+                            user_roles.role_id 
+                            FROM users
+                            JOIN user_roles
+                            ON users.id = user_roles.user_id 
+                            WHERE email = ?  AND password = ?;";
+
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute([$this->getEmail(), $this->getPassword()]);
+        $result = $stmt->fetchObject(User::class);
+        
+        return $result;
+    }
 }
