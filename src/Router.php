@@ -4,8 +4,7 @@ namespace App;
 
 use Exception;
 
-class Router
-{
+class Router{
     protected $routes = [];
 
     private function addRoute($route, $controller, $action, $method)
@@ -31,7 +30,8 @@ class Router
         if (array_key_exists($uri, $this->routes[$method])) {
             $controller  = $this->routes[$method][$uri]['controller'];
             $action  = $this->routes[$method][$uri]['action'];
-
+//  var_dump($controller );
+// die();
             $controller = new $controller();
             $controller->$action();
         } else {

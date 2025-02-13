@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+use Exception;
+use PDO;
+
 class Database
 {
    
@@ -11,7 +14,7 @@ class Database
     {
         $params = parse_ini_file('database.ini');
         if ($params === false) {
-            throw new \Exception("Error reading database configuration file");
+            throw new Exception("Error reading database configuration file");
         }
        
         $conStr = sprintf(
@@ -23,8 +26,8 @@ class Database
             $params['password']
         );
 
-        $pdo = new \PDO($conStr);
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $pdo = new PDO($conStr);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
     }

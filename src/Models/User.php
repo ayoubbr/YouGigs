@@ -6,7 +6,7 @@ use App\Core\Database;
 use PDO;
 
 #[\AllowDynamicProperties]
-class User
+class User extends Crud
 {
     private int $id = 0;
     private string $firstname = "";
@@ -122,14 +122,14 @@ class User
         $this->photo = $photo;
     }
 
-    public function getStatus(): string
+    public function getSkill()
     {
-        return $this->status;
+        return $this->skill;
     }
 
-    public function setStatus(string $status): void
+    public function setSkill($skill): void
     {
-        $this->status = $status;
+        $this->skill = $skill;
     }
 
     public function getRole(): Role
@@ -183,12 +183,7 @@ class User
 
     public function getAll()
     {
-        $query = "SELECT id, firstname, lastname,
-         password, email, phone, photo, status, role_id FROM users;";
-        $stmt = Database::get()->connect()->prepare($query);
-        $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_CLASS, 'App\Models\User');
-        return $users;
+        return $this->selectAll('users');
     }
 
     public function findByEmailAndPassword(): mixed

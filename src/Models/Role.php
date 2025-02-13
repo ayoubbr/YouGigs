@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Core\Database;
 
-class Role
+class Role extends Crud
 {
     private int $id = 0;
     private string $name = "";
