@@ -3,8 +3,10 @@ session_start();
 
 use App\Controllers\AdminController;
 use App\Controllers\AuthController;
+use App\Controllers\CategorieController;
 use App\Controllers\HomeController;
 use App\Controllers\ProjectController;
+use App\Models\Categorie;
 use App\Router;
 
 $router = new Router;

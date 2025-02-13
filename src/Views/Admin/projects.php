@@ -1,12 +1,12 @@
     <div class="header">
         <h1 class="page-title">Projects Management</h1>
-        <button class="add-project-btn">
+        <!-- <button class="add-project-btn">
             <i class="fas fa-plus"></i>
             Add New Project
-        </button>
+        </button> -->
     </div>
 
-    <div class="filters-bar">
+    <!-- <div class="filters-bar">
         <div class="search-box">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search projects...">
@@ -32,10 +32,9 @@
                 <option value="budget-low">Budget: Low to High</option>
             </select>
         </div>
-    </div>
+    </div> -->
 
     <div class="projects-grid">
-        <!-- Project Card 1 -->
         <div class="project-card">
             <div class="project-card-header">
                 <h2 class="project-title">E-commerce Website Development</h2>
@@ -73,7 +72,6 @@
             </div>
         </div>
 
-        <!-- Project Card 2 -->
         <div class="project-card">
             <div class="project-card-header">
                 <h2 class="project-title">Mobile App UI/UX Design</h2>

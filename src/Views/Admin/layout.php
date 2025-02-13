@@ -8,6 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/styles/dashboard.css">
     <link rel="stylesheet" href="/assets/styles/admin/projects.css">
+    <link rel="stylesheet" href="/assets/styles/admin/users.css">
+    <link rel="stylesheet" href="/assets/styles/admin/categories.css">
     <link rel="shortcut icon" href="/assets/images/freelance.png" type="image/x-icon">
 </head>
 
