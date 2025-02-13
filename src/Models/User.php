@@ -192,13 +192,19 @@ class User
     }
 
     public function findByEmailAndPassword(): mixed
-    { 
-       
-        $query = "SELECT id, firstname, lastname, email, phone, photo, password FROM users WHERE email = '" . $this->getEmail() . "' AND password = '" . $this->getPassword() . "';";
-       
+    {
+
+        $query = "SELECT users.id, users.firstname, users.lastname, users.email, users.phone, users.photo, users.password, 
+                            user_roles.role_id 
+                            FROM users
+                            JOIN user_roles
+                            ON users.id = user_roles.user_id 
+                            WHERE email = ?  AND password = ?;";
+
         $stmt = Database::get()->connect()->prepare($query);
-        $stmt->execute();
-       
-        return $stmt->fetchObject(User::class);
+        $stmt->execute([$this->getEmail(), $this->getPassword()]);
+        $result = $stmt->fetchObject(User::class);
+        
+        return $result;
     }
 }

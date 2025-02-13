@@ -35,7 +35,7 @@ class Router
             $controller = new $controller();
             $controller->$action();
         } else {
-            echo '404';
+            include 'Views/Shared/not_found.php';
         }
     }
 }

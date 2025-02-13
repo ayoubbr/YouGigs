@@ -10,14 +10,7 @@ use Exception;
 
 class AuthController extends Controller
 {
-    private Role $role;
-    private User $user;
-    private $twig;
-    public function __construct()
-    {
-        $this->user = new User();
-        $this->role = new Role();
-    }
+    public function __construct() {}
 
     public function showRegister()
     {
@@ -52,6 +45,7 @@ class AuthController extends Controller
 
             if ($user) {
                 $_SESSION['user'] = $user;
+                header('Location: /profile'); 
             }
         } catch (Exception $e) {
             $_SESSION['register_error'] =  $e->getMessage();
@@ -75,7 +69,18 @@ class AuthController extends Controller
             $this->render('/Shared/login');
         } else {
             $_SESSION['user'] = $user;
-            $this->render('/Shared/profile');
+            header('Location: /profile');
         }
+    }
+
+    public function profile()
+    {
+        $this->render('/Shared/profile');
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        $this->render('index', []);
     }
 }
