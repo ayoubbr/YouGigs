@@ -3,6 +3,7 @@ session_start();
 
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
+use App\Controllers\ProjectController;
 use App\Router;
 
 $router = new Router;
@@ -14,6 +15,7 @@ $router->get('/auth/logout', AuthController::class, 'logout');
 $router->get('/login', AuthController::class, 'showLogin');
 $router->post('/auth/login', AuthController::class, 'login');
 $router->get('/profile', AuthController::class, 'profile');
+$router->get('/projects', ProjectController::class, 'index');
 
 
 $router->dispatch();
