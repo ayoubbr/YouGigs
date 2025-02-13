@@ -70,31 +70,31 @@ class Role extends Crud
         $this->badge = $badge;
     }
 
-    // public function __toString()
-    // {
-    //     $id = $this->id ?? 0;
-    //     $name = $this->name ?? "";
-    //     $description = $this->description ?? "";
-    //     $badge = $this->badge ?? "";
-    //     return "(Role) => id : " . $id . " , name : " . $name . " , description : " . $description . " , badge : " . $badge;
-    // }
+    public function __toString()
+    {
+        $id = $this->id ?? 0;
+        $name = $this->name ?? "";
+        $description = $this->description ?? "";
+        $badge = $this->badge ?? "";
+        return "(Role) => id : " . $id . " , name : " . $name . " , description : " . $description . " , badge : " . $badge;
+    }
 
-    // public function findByName(string $name)
-    // {
-    //     $query = "SELECT id, name, description, badge FROM roles WHERE name = '" . $name . "';";
-    //     $stmt = Database::get()->connect()->prepare($query);
-    //     $stmt->execute();
+    public function findByName(string $name)
+    {
+        $query = "SELECT id, name, description, badge FROM roles WHERE name = '" . $name . "';";
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute();
 
-    //     $result = $stmt->fetchObject(Role::class);
-    //     return $result;
-    // }
+        $result = $stmt->fetchObject(Role::class);
+        return $result;
+    }
 
-    // public function findById(int $id): Role
-    // {
-    //     $query = "SELECT id, name, description, badge FROM roles WHERE id = " . $id . ";";
-    //     $stmt = Database::get()->connect()->prepare($query);
-    //     $stmt->execute();
-    //     $result = $stmt->fetchObject(Role::class);
-    //     return $result;
-    // }
+    public function findById(int $id): Role
+    {
+        $query = "SELECT id, name, description, badge FROM roles WHERE id = " . $id . ";";
+        $stmt = Database::get()->connect()->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchObject(Role::class);
+        return $result;
+    }
 }

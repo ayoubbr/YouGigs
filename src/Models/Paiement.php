@@ -3,5 +3,9 @@
 
 
 class Paiement extends Crud{
-    private 
+    private int $id;
+    private facture $facture;
+    private string $date_paiment;
+
+
 }

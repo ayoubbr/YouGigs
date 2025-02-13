@@ -15,11 +15,11 @@ abstract class Crud
         $columns = implode(', ', array_keys($data));
         $values = implode(', ', array_fill(0, count($data), '?'));
 
-        $sql = "insert into $table($columns) values ($values)";
+        $sql = "insert into $table($columns) values ($values) RETURNING id";
         $stmt = Database::get()->connect()->prepare($sql);
-        $stmt->execute(array_values($data));
-
-        return Database::get()->connect()->lastInsertId();
+         $stmt->execute(array_values($data));
+        $lastId =$stmt->fetchColumn();
+        return $lastId;
     }
     public function select(string $table,string $id_name,int $id):object
     {
