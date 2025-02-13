@@ -7,7 +7,6 @@
     <title>Sign In - YouGigs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/styles/login.css">
     <link rel="shortcut icon" href="/assets/images/freelance.png" type="image/x-icon">
 </head>
@@ -41,8 +40,8 @@
 
             <form action="/auth/login" method="POST">
                 <?php
-                if (isset($_SESSION['login_error'])) { 
-                    ?>
+                if (isset($_SESSION['login_error'])) {
+                ?>
                     <div class="error">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                             <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM7 4v6h2V4H7zm0 8v-2h2v2H7z" />

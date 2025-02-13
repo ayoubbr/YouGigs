@@ -1,6 +1,5 @@
 @import url('./main.css');
 body {
-    font-family: var(--font-family);
     color: var(--text-color);
     line-height: 1.6;
 }
