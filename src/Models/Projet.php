@@ -4,31 +4,49 @@ use App\Models\Crud;
 
 
 class Projet extends Crud{
+    private int $id;
     private string $name ;
+    private User $client;
     private string $description;
-    private categorie $categorie;
+    private Categorie $Categorie;
     private float $bidgee;
     private int $duree;
-    private tag $tag;
+    private Tag $Tag;
     public function __construct(){
-        $this->name;
-        $this->description;
-        $this->categorie=new Categorie;
-        $this->bidgee;
-        $this->duree;
-        $this->tag = new Tag;
+        // $this->name;
+        // $this->description;
+        $this->Categorie=new Categorie;
+        // $this->bidgee;
+        // $this->duree;
+        // $this->Tag = new Tag;
+        $this->client= new User;
 
     }
     public function __call($name,$arguments){
-        if($name = 'nameDiscriptionCategorieBidgee'){
-            $this->name =$arguments[0];
-            $this->description=$arguments[1];
-            $this->categorie=$arguments[2];
-            $this->tag=$arguments[3];
-            $this->duree=$arguments[4];
+        if($name = 'nameDiscriptionCategoriedgeeclientduree'){
+        $this->name =$arguments[0];
+        $this->description=$arguments[1];
+        // $this->Categorie=$arguments[2];
+        // $this->Tag=$arguments[3];
+        $this->duree=$arguments[2];
+        // $this->client=$arguments[3];
+        $this->bidgee=$arguments[3];
+
         }
     }
     
-    public function createprojet(){$this->insert('projet',[$this->name,$this->description,$this->categorie,$this->]);}
+    public function createprojet(string $name_categorie) {
+        $this->Categorie->findbyname($name_categorie);
+        
+        $this->id = $this->insert('projets', [
+            'name' => $this->name,
+            'description' => $this->description,
+            'client_id' => $_SESSION['user']->getId(),
+            'budget' => $this->bidgee,
+            'duration' => $this->duree,
+            'category_id' => $this->Categorie->getidcategorie() 
+        ]);
+    }
+    public function getAll(){return $this->selectAll('projets');}
 
 }

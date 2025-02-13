@@ -40,12 +40,21 @@ class Categorie extends Crud{
         $this->delete('categories','id',$id);
     }
 
-    public function findbyname($name){
-        $sql = "SELECT id FROM categories WHERE 'name' = ?";
+    public function findbyname($name) {
+        $sql = "SELECT * FROM categories WHERE name = ?"; 
         $stmt = Database::get()->connect()->prepare($sql);
         $stmt->execute([$name]);
-
-        return $stmt->fetch(PDO::FETCH_OBJ);
+        
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        
+        if ($result) {
+            $this->id = $result->id;
+            $this->name = $result->name;
+            $this->description = $result->description ?? null;
+            return $this; 
+        }
+        
+        return null; 
     }
     public function getAllcategorie(){return $this->selectAll('categories');}
 //   getters/setters

@@ -9,6 +9,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        $this->render('index', []);
+    }
+
+    public function test()
+    {
         $this->render('test', []);
     }
 }

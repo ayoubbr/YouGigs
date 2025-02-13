@@ -64,6 +64,7 @@ CREATE TABLE
         description TEXT,
         budget FLOAT,
         duration INT,
+        client_id INT REFERENCES users (id) ON DELETE SET NULL,
         category_id INT REFERENCES categories (id) ON DELETE SET NULL
     );
 
