@@ -11,5 +11,9 @@ $router->get('/', HomeController::class, 'index');
 $router->get('/register', AuthController::class, 'showRegister');
 $router->post('/auth/register', AuthController::class, 'register');
 $router->get('/auth/logout', AuthController::class, 'logout');
+$router->get('/login', AuthController::class, 'showLogin');
+$router->post('/auth/login', AuthController::class, 'login');
+$router->get('/profile', AuthController::class, 'profile');
+
 
 $router->dispatch();
