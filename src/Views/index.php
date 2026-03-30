@@ -16,7 +16,7 @@
         <div class="header-content">
             <a href="/" class="logo">YouGigs</a>
             <nav class="nav-links">
-                <a href="/projects">Browse Gigs</a>
+                <a href="/home/projects">Browse Gigs</a>
                 <a href="/freelances">Find Talent</a>
             </nav>
             <?php

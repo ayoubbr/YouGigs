@@ -18,7 +18,7 @@ $router->get('/auth/logout', AuthController::class, 'logout');
 $router->get('/login', AuthController::class, 'showLogin');
 $router->post('/auth/login', AuthController::class, 'login');
 $router->get('/profile', AuthController::class, 'profile');
-$router->get('/projects', ProjectController::class, 'index');
+$router->get('/home/projects', ProjectController::class, 'index');
 
 
 // Dashboard routes

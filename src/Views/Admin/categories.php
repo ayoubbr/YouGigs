@@ -7,7 +7,8 @@
 </div>
 
 <div class="categories-container">
-    <?php foreach ($categories as $category): ?>
+    <?php foreach ($categories as $category): 
+        ?>
         <div class="category-card">
             <div class="category-header">
                 <i class="fa fas-folder"></i>
